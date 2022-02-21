@@ -143,7 +143,6 @@ def send_music_data():
 @bp.route('/movies', methods=['POST'])
 def send_movies_list():
   result = request.get_json()
-  print(result)
   # result 형태
   # result = {
   #   'genre': 12,
@@ -154,7 +153,6 @@ def send_movies_list():
   #     "valence": 70,
   #   }
   # }
-  print(result)
 
   # 변수에 전달받은 값 담기
   # 장르 id는 1, 2, 3, 4, 5, 12 중 하나 [ Comedy(2)  Thriller(3)   Romance(4)  Action(5)  Sci-Fi(12)]
@@ -200,10 +198,8 @@ def send_movies_list():
 
   # 여기서 반환된 songs에는 모든 필터를 거친 영화의 음악 특성이 들어있는 배열의 형태이다.
   response = []
-  print(len(songs))
   
   for song in songs:
-    # print(song.movie_id)
     data = {}
     movie = Movies.query.filter(Movies.id == song.movie_id).first()
     song_url = Songs.query.filter(Songs.movie_id == song.movie_id).first()

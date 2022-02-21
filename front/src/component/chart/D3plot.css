@@ -1,0 +1,29 @@
+body {
+    font: 15px sans-serif;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #adb5bd;
+    shape-rendering: crispEdges;
+}
+
+.dot {
+    stroke: none;
+}
+.tooltip {
+    font-family: "Roboto Slab", serif;
+    position: absolute;
+    font-size: 18px;
+    width: auto;
+    height: auto;
+    pointer-events: none;
+    background-color: white;
+}
+.tick,
+.label {
+    font-family: "Roboto Slab", serif;
+    font-size: 15px;
+    fill: #adb5bd;
+}

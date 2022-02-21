@@ -1,12 +1,8 @@
-import re
 import requests
 from urllib.error import HTTPError
 from bs4 import BeautifulSoup
-import time
-import random
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.util.retry import Retry
-from pprint import pprint
 import pandas as pd
 
 movie_info = pd.read_csv('movie_info.csv')
@@ -31,5 +27,5 @@ def return_synopsis(id):
         soup = BeautifulSoup(html, 'html.parser')
         if not soup.find('p', {'class':'con_tx'}):
             return '0'
-        result = soup.find('p', {'class':'con_tx'}).text.replace('\r\xa0', '<br />')
+        result = soup.find('p', {'class':'con_tx'}).text.replace('\r\xa0', ' ')
         return result

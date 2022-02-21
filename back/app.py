@@ -1,7 +1,6 @@
 from flask import Flask
 from models import db
 import os
-os.path.join(os.getcwd(), 'functions')
 
 from views import main_service, mypage_view, recommend_view
 from flask_cors import CORS
@@ -18,7 +17,6 @@ print(f"mysql://{os.environ.get('DB_USER')}:{os.environ.get('DB_PASSWORD')}@127.
 
 app.register_blueprint(main_service.bp)
 app.register_blueprint(mypage_view.bp)
-
 app.register_blueprint(recommend_view.bp)
 CORS(app)
 

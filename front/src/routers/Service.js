@@ -3,6 +3,7 @@ import MusicGenre from "../component/MusicGenre";
 import FilterMovie from "../component/FilterMovie";
 import Stepper, { useStepper } from "../component/useStepper";
 import PageLayout from "../component/PageLayout.jsx";
+import { LastLoading } from "../component/Spninner";
 
 const Service = ({ history }) => {
     const { step, onNext, onPrev } = useStepper(); //커스텀 훅 만든 것
@@ -14,12 +15,7 @@ const Service = ({ history }) => {
                     <MovieGenre />
                     <MusicGenre />
                     <FilterMovie />
-                    <div>
-                        나랑 결과보러 가지 않을래
-                        <button onClick={() => history.push("/")}>
-                            눌러봐
-                        </button>
-                    </div>
+                    <LastLoading color="#304543" />
                 </Stepper>
             </PageLayout>
         </div>

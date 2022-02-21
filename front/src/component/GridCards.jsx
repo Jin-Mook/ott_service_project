@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useRef, useState } from "react";
 import { Col } from "antd";
-import Always from "../routers/Always.mp3";
 import styled from "styled-components";
 import Image from "./Image";
 
@@ -17,6 +16,7 @@ const GridCards = (props) => {
     const audioPromiseRef = useRef(Promise.resolve());
     const start = () => {
         audioPromiseRef.current.then(() => audioTrack.play());
+        audioTrack.volume = 0.05;
     };
     const stop = () => {
         audioPromiseRef.current.then(() => audioTrack.pause());
@@ -25,34 +25,34 @@ const GridCards = (props) => {
     return (
         <Col span={8} lg={8} md={8} xs={props.xs}>
             {/*브라우저의 크기가 가장클때는 24중에 6만쓰겠다는의미 중간은 8 가장작을때는 24를 다쓰겠다는의미*/}
-            <div style={{ position: "relative" }}>
-                <HHover onMouseEnter={start} onMouseLeave={stop}>
-                    <span className="text">
-                        <div onClick={onClickhandler} value={props.id}>
-                            <h2>
-                                🎶
-                                <br /> {props.movieName}
-                            </h2>
-                        </div>
-                    </span>
-                    <Image
-                        // style={{ width: "100%", height: "320px" }}
-                        alt={null} //TODO 이미지 제목 넣어야함
-                        src={props.image}
-                    />
-                </HHover>
-            </div>
+
+            <HHover onMouseEnter={start} onMouseLeave={stop}>
+                <span className="text">
+                    <Box onClick={onClickhandler} value={props.id}>
+                        <h2>
+                            🎶
+                            <br /> {props.movieName}
+                        </h2>
+                    </Box>
+                </span>
+                <Image
+                    alt={props.id} //TODO 이미지 제목 넣어야함
+                    src={props.image}
+                    circle={props.circle}
+                />
+            </HHover>
         </Col>
     );
 };
 
-const HHover = styled.div`
+export const HHover = styled.div`
     {
         position: relative;
-        border: 1px solid white;
+        
         text-align: center;
 
     }
+
     .text {
         position: absolute;
         top: 50%;
@@ -65,6 +65,7 @@ const HHover = styled.div`
     .text h2 {
         margin: 0;
         color: white;
+
     }
     :hover .text {
         opacity: 1;
@@ -77,7 +78,12 @@ const HHover = styled.div`
         
     }
     &:hover {
-        border-color: #e36bae;
+    
+`;
+
+const Box = styled.div`
+    dislplay: block;
+    margin: 0 auto;
 `;
 
 export default GridCards;

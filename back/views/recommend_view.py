@@ -30,6 +30,10 @@ def recommend(movie_id):
   movie4_feature = Features.query.filter(Features.movie_id == movie_id4).first()
   movie4_pca = Movie_pcas.query.filter(Movie_pcas.movie_id == movie_id4).first()
 
+  # 이전 영화 정보의 feature들을 추가로 전달한다.
+  selected_movie_feature = Features.query.filter(Features.movie_id == movie_id).first()
+
+
   response = []
   movies = [[movie1, movie1_song, movie1_feature, movie1_pca], [movie2, movie2_song, movie2_feature, movie2_pca], [movie3, movie3_song, movie3_feature, movie3_pca], [movie4, movie4_song, movie4_feature, movie4_pca]]
   
@@ -52,6 +56,7 @@ def recommend(movie_id):
     data['runtime'] = movie.runtime
     data['movie_age_rating'] = movie.movie_age_rating
     data['poster_url'] = movie.poster_url
+    data['like_count'] = movie.like_count
     data['movie_plot'] = return_synopsis(movie.id)
     data['album_name'] = song.album_name
     data['track_name'] = song.track_name
@@ -73,5 +78,20 @@ def recommend(movie_id):
     data['pca'] = pca
 
     response.append(data)
+  
+  selected_movie = {}
+  selected_movie['acousticness'] = selected_movie_feature.acousticness
+  selected_movie['danceability'] = selected_movie_feature.danceability
+  selected_movie['energy'] = selected_movie_feature.energy
+  selected_movie['tempo'] = selected_movie_feature.tempo
+  selected_movie['valence'] = selected_movie_feature.valence
+  selected_movie['instrumentalness'] = selected_movie_feature.instrumentalness
+  selected_movie['liveness'] = selected_movie_feature.liveness
+  selected_movie['loudness'] = selected_movie_feature.loudness
+  selected_movie['speechiness'] = selected_movie_feature.speechiness
+
+  selected_movie_features = {}
+  selected_movie_features['selected_features'] = selected_movie
+  response.append(selected_movie_features)
   
   return jsonify(response)

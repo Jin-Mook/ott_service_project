@@ -19,3 +19,8 @@ export const previewTrackState = atom({
     key: "previewTrack",
     default: [],
 });
+
+export const AudioState = atom({
+    key: "Audio",
+    default: false,
+});
